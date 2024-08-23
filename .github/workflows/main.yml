@@ -46,6 +46,7 @@ jobs:
       - name: Install project
         run: poetry install --no-interaction
       - uses: actions/checkout@v4
+      - uses: chartboost/ruff-action@v1
       - name: Run linter
         run: make lint
 
@@ -80,8 +81,6 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Install project
         run: poetry install --no-interaction
-      - name: Install project
-        run: make install
       - name: Run tests
         run: make test
       - name: "Upload coverage to Codecov"
@@ -120,8 +119,6 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Install project
         run: poetry install --no-interaction
-      - name: Install project
-        run: make install
       - name: Run tests
         run: make test
 

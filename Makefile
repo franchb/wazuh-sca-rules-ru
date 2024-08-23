@@ -26,16 +26,13 @@ install:          ## Install the project in dev mode.
 
 .PHONY: fmt
 fmt:              ## Format code using black & isort.
-	$(ENV_PREFIX)isort wazuh_sca_rules_ru/
-	$(ENV_PREFIX)black -l 79 wazuh_sca_rules_ru/
-	$(ENV_PREFIX)black -l 79 tests/
+	$(ENV_PREFIX)ruff format wazuh_sca_rules_ru/
+	$(ENV_PREFIX)ruff format tests/
 
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
-	$(ENV_PREFIX)flake8 wazuh_sca_rules_ru/
-	$(ENV_PREFIX)black -l 79 --check wazuh_sca_rules_ru/
-	$(ENV_PREFIX)black -l 79 --check tests/
-	$(ENV_PREFIX)mypy --ignore-missing-imports wazuh_sca_rules_ru/
+	$(ENV_PREFIX)ruff check wazuh_sca_rules_ru/
+	$(ENV_PREFIX)ruff check tests/
 
 .PHONY: test
 test: lint        ## Run tests and generate coverage report.
