@@ -46,6 +46,8 @@ jobs:
       #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------
+      - name: List directory
+        run: ls -al ${{ github.workspace }}
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
         working-directory: ${{ github.workspace }}
