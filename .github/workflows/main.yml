@@ -54,7 +54,7 @@ jobs:
       - name: Install project
         run: poetry install --no-interaction
         with:
-          python-version: ${{ matrix.python-version }}
+      - uses: actions/checkout@v4
       - name: Run linter
         run: make lint
         with:
