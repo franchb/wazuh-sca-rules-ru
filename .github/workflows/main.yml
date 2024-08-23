@@ -85,7 +85,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------
@@ -97,9 +97,6 @@ jobs:
       #----------------------------------------------
       - name: Install project
         run: poetry install --no-interaction
-      - uses: actions/checkout@v4
-        with:
-          python-version: ${{ matrix.python-version }}
       - uses: actions/checkout@v4
         with:
           python-version: ${{ matrix.python-version }}
@@ -137,7 +134,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------
@@ -149,9 +146,6 @@ jobs:
       #----------------------------------------------
       - name: Install project
         run: poetry install --no-interaction
-      - uses: actions/checkout@v4
-        with:
-          python-version: ${{ matrix.python-version }}
       - uses: actions/checkout@v4
         with:
           python-version: ${{ matrix.python-version }}
@@ -185,7 +179,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ steps.setup-python.outputs.python-version }}-${{ hashFiles('**/poetry.lock') }}
+          key: venv-${{ runner.os }}-${{ matrix.python-version }}-${{ hashFiles('**/poetry.lock') }}
       #----------------------------------------------
       # install dependencies if cache does not exist
       #----------------------------------------------
@@ -200,12 +194,5 @@ jobs:
       - uses: actions/checkout@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - uses: actions/checkout@v4
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install Pip
-        run: pip install --user --upgrade pip
-      - name: Install project
-        run: pip install -e .[test]
       - name: run tests
         run: pytest -s -vvvv -l --tb=long tests
