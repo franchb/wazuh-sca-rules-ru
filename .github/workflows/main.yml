@@ -48,16 +48,19 @@ jobs:
       #----------------------------------------------
       - name: Install dependencies
         if: steps.cached-poetry-dependencies.outputs.cache-hit != 'true'
+        working-directory: ${{ github.workspace }}
         run: poetry install --no-interaction --no-root
       #----------------------------------------------
       # install your root project, if required
       #----------------------------------------------
       - name: Install project
         run: poetry install --no-interaction
+        working-directory: ${{ github.workspace }}
       - uses: actions/checkout@v4
         with:
           python-version: ${{ matrix.python-version }}
       - name: Run linter
+        working-directory: ${{ github.workspace }}
         run: make lint
 
   tests_linux:
