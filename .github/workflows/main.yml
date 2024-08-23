@@ -45,7 +45,6 @@ jobs:
         run: poetry install --no-interaction --no-root
       - name: Install project
         run: poetry install --no-interaction
-        with:
       - uses: actions/checkout@v4
       - name: Run linter
         run: make lint
