@@ -1,4 +1,4 @@
-"""CLI interface for project_name project.
+"""CLI interface for wazuh_sca_rules_ru project.
 
 Be creative! do whatever you want!
 
@@ -12,7 +12,7 @@ Be creative! do whatever you want!
 def main():  # pragma: no cover
     """
     The main function executes on commands:
-    `python -m project_name` and `$ project_name `.
+    `python -m wazuh_sca_rules_ru` and `$ wazuh_sca_rules_ru `.
 
     This is your program's entry point.
 
