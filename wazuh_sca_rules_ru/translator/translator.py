@@ -1,3 +1,5 @@
+import os
+
 import openai
 
 
@@ -9,7 +11,7 @@ def get_completion(prompt, api_key, model="text-davinci-003"):
 
 # Example usage
 if __name__ == "__main__":
-    api_key = "your_openai_api_key_here"
+    api_key = os.getenv("OPENAI_API_KEY")
     prompt = "Write a short poem about autumn."
     completion = get_completion(prompt, api_key)
     print(completion)
