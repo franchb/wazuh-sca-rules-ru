@@ -26,16 +26,13 @@ install:          ## Install the project in dev mode.
 
 .PHONY: fmt
 fmt:              ## Format code using black & isort.
-	$(ENV_PREFIX)isort wazuh_sca_rules_ru/
-	$(ENV_PREFIX)black -l 79 wazuh_sca_rules_ru/
-	$(ENV_PREFIX)black -l 79 tests/
+	$(ENV_PREFIX)ruff format wazuh_sca_rules_ru/
+	$(ENV_PREFIX)ruff format tests/
 
 .PHONY: lint
 lint:             ## Run pep8, black, mypy linters.
-	$(ENV_PREFIX)flake8 wazuh_sca_rules_ru/
-	$(ENV_PREFIX)black -l 79 --check wazuh_sca_rules_ru/
-	$(ENV_PREFIX)black -l 79 --check tests/
-	$(ENV_PREFIX)mypy --ignore-missing-imports wazuh_sca_rules_ru/
+	$(ENV_PREFIX)ruff check wazuh_sca_rules_ru/
+	$(ENV_PREFIX)ruff check tests/
 
 .PHONY: test
 test: lint        ## Run tests and generate coverage report.
@@ -92,28 +89,6 @@ docs:             ## Build the documentation.
 	@echo "building documentation ..."
 	@$(ENV_PREFIX)mkdocs build
 	URL="site/index.html"; xdg-open $$URL || sensible-browser $$URL || x-www-browser $$URL || gnome-open $$URL || open $$URL
-
-.PHONY: switch-to-poetry
-switch-to-poetry: ## Switch to poetry package manager.
-	@echo "Switching to poetry ..."
-	@if ! poetry --version > /dev/null; then echo 'poetry is required, install from https://python-poetry.org/'; exit 1; fi
-	@rm -rf .venv
-	@poetry init --no-interaction --name=a_flask_test --author=rochacbruno
-	@echo "" >> pyproject.toml
-	@echo "[tool.poetry.scripts]" >> pyproject.toml
-	@echo "wazuh_sca_rules_ru = 'wazuh_sca_rules_ru.__main__:main'" >> pyproject.toml
-	@cat requirements.txt | while read in; do poetry add --no-interaction "$${in}"; done
-	@cat requirements-test.txt | while read in; do poetry add --no-interaction "$${in}" --dev; done
-	@poetry install --no-interaction
-	@mkdir -p .github/backup
-	@mv requirements* .github/backup
-	@mv setup.py .github/backup
-	@echo "You have switched to https://python-poetry.org/ package manager."
-	@echo "Please run 'poetry shell' or 'poetry run wazuh_sca_rules_ru'"
-
-.PHONY: init
-init:             ## Initialize the project based on an application template.
-	@./.github/init.sh
 
 
 # This project has been generated from rochacbruno/python-project-template
